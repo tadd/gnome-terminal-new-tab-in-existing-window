@@ -1,0 +1,31 @@
+#!/bin/bash
+
+_bus()
+{
+    busctl --user $@ org.gnome.Terminal
+}
+
+_sid()
+{
+    _bus tree --list|sed -n 's|.*screen/||p'|tail -1
+}
+
+_name()
+{
+    _bus status|sed -n 's/UniqueName=//p'
+}
+
+_newtab()
+{
+    local bin=gnome-terminal sid=$(_sid) env
+    if [[ $sid ]]; then
+        local scr=/org/gnome/Terminal/screen/$sid
+        env="GNOME_TERMINAL_SERVICE=$(_name) GNOME_TERMINAL_SCREEN=$scr"
+    fi
+    env $env $bin --tab "$@"
+    if (( $? == 0 )); then
+        xdotool search --onlyvisible --class $bin windowactivate
+    fi
+}
+
+_newtab "$@"
