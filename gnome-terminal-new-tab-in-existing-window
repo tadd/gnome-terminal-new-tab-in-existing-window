@@ -23,7 +23,7 @@ _newtab()
         env="GNOME_TERMINAL_SERVICE=$(_name) GNOME_TERMINAL_SCREEN=$scr"
     fi
     env $env $bin --tab "$@"
-    if (( $? == 0 )); then
+    if [[ $? == 0 ]] && which xdotool >/dev/null; then
         xdotool search --onlyvisible --class $bin windowactivate
     fi
 }

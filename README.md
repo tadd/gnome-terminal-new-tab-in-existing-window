@@ -17,5 +17,5 @@ In fact, it only sets two environment variables, `GNOME_TERMINAL_SERVICE` and
 
 * `busctl`
   * Get current bus name and screen ID of `gnome-terminal`
-* `xdotool`
+* `xdotool` (Optional)
   * Activate the existing window after a new tab opened
