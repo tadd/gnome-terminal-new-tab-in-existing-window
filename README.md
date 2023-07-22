@@ -8,9 +8,9 @@ gnome-terminal-new-tab-in-existing-window [any additional options here]
 ```
 
 This flimsy wrapper behaves like `gnome-terminal --tab ...`, but opens a new tab in the
-existing window if possible. Options are passed on directly to `gnome-terminal`.
+existing window if possible. Any options are passed directly to `gnome-terminal`.
 
-In fact, it only sets two environment variables, `GNOME_TERMINAL_SERVICE` and
+It does nothing more than set two environment variables, `GNOME_TERMINAL_SERVICE` and
 `GNOME_TERMINAL_SCREEN`.
 
 ## Dependencies
