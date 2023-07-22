@@ -15,16 +15,25 @@ _name()
     _bus status|sed -n 's/UniqueName=//p'
 }
 
+_activate_window()
+{
+    busctl --user call org.gnome.Shell \
+      /de/lucaswerkmeister/ActivateWindowByTitle \
+      de.lucaswerkmeister.ActivateWindowByTitle \
+      activateByWmClass s "$1"
+}
+
 _newtab()
 {
+    set -u
     local bin=gnome-terminal sid=$(_sid) env
     if [[ $sid ]]; then
         local scr=/org/gnome/Terminal/screen/$sid
         env="GNOME_TERMINAL_SERVICE=$(_name) GNOME_TERMINAL_SCREEN=$scr"
     fi
     env $env $bin --tab "$@"
-    if [[ $? == 0 ]] && which xdotool >/dev/null; then
-        xdotool search --onlyvisible --class $bin windowactivate
+    if [[ $? == 0 ]]; then
+        _activate_window $bin-server
     fi
 }
 

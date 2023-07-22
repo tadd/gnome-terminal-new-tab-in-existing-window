@@ -17,5 +17,9 @@ In fact, it only sets two environment variables, `GNOME_TERMINAL_SERVICE` and
 
 * `busctl`
   * Get current bus name and screen ID of `gnome-terminal`
-* `xdotool` (Optional)
+* [Activate Window By Title](https://extensions.gnome.org/extension/5021/activate-window-by-title/)
+  (GNOME Extension)
   * Activate the existing window after a new tab opened
+  * Supports both of X and Wayland, maybe
+  * This extension seemed to be easier than to use the
+    [portable one](https://wayland.app/protocols/xdg-activation-v1#xdg_activation_v1:request:activate)
