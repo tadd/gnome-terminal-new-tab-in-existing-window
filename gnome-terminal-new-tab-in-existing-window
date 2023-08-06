@@ -32,9 +32,11 @@ _newtab()
         local env="GNOME_TERMINAL_SERVICE=$(_name) GNOME_TERMINAL_SCREEN=$scr"
         bin="env $env $bin"
     fi
-    $bin --tab "$@"
-    if [[ $? == 0 ]]; then
-        _activate_window $bin-server
+    $bin --tab "$@"; ret=$?
+    if (( ret == 0 )); then
+        _activate_window ${bin}-server
+    else
+        echo "got retval: $ret" >&2
     fi
 }
 
