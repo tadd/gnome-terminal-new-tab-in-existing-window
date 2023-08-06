@@ -26,18 +26,17 @@ _activate_window()
 _newtab()
 {
     set -u
-    local bin=gnome-terminal sid=$(_sid)
-    if [[ $sid ]]; then
+    local bin=gnome-terminal sid=$(_sid) env=''
+    if [[ -n $sid ]]; then
         local scr=/org/gnome/Terminal/screen/$sid
-        local env="GNOME_TERMINAL_SERVICE=$(_name) GNOME_TERMINAL_SCREEN=$scr"
-        bin="env $env $bin"
+        env="GNOME_TERMINAL_SERVICE=$(_name) GNOME_TERMINAL_SCREEN=$scr"
     fi
-    $bin --tab "$@"; ret=$?
-    if (( ret == 0 )); then
-        _activate_window ${bin}-server
-    else
-        echo "got retval: $ret" >&2
+    env $env $bin --tab "$@"; local ret=$?
+    if (( ret )); then
+        echo "got retval while executing $bin: $ret" >&2
+        exit $ret
     fi
+    _activate_window ${bin}-server
 }
 
 _newtab "$@"
