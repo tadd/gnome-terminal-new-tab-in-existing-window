@@ -17,7 +17,7 @@ _name()
 
 _activate_window()
 {
-    busctl --user call org.gnome.Shell \
+    busctl --quiet --user call org.gnome.Shell \
       /de/lucaswerkmeister/ActivateWindowByTitle \
       de.lucaswerkmeister.ActivateWindowByTitle \
       activateByWmClass s "$1"
